@@ -3,7 +3,7 @@
 #include <vector>
 #include <typeinfo> //for class type information
 
-#include "yuanFun.h"
+#include "../yuanFun.h"
 
 using namespace std;
 
