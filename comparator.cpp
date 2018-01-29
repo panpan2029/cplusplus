@@ -46,9 +46,21 @@ struct myLess
 	bool operator()(const int a, const int b) const {return a < b ;}
 };
 
-
+class mycomparison
+{
+  bool reverse;
+public:
+  mycomparison(const bool& revparam=false)
+    {reverse=revparam;}
+  bool operator() (const int& lhs, const int&rhs) const
+  {
+    if (reverse) return (lhs>rhs); //min heap
+    else return (lhs<rhs);
+  }
+};
 
 int main(){
+	//set
 	string str1 = "abc";
 	string str2 = "aBy";
 	cout << ( str1 > str2) << endl;
@@ -57,22 +69,37 @@ int main(){
 	set<string,bool(*)(string, string)> strSet (fn_pt);; // user-defined function
 	strSet.insert(str1);
 	strSet.insert(str2);
+	cout << "set, use function CaseInsensitiveCompare, increasing order ...\n";
 	for(auto & s : strSet)
 		cout << s << ' ';
 	cout << endl;
 
+	//array
 	int arr[] = {3,7,9,1,5,0};
 	int len = 6; 
+	cout << "use greater<int>() ...\n";
 	sort(arr, arr+6, greater<int>()); //default less<Object>, default comparison (operator <); () instatiate an obj
 	printArrary(arr, len);
 	
-
+	cout << "use lambda, increasing order ...\n";
 	sort(arr, arr + len, [](int a, int b){return a < b;}); // lambda
 	printArrary(arr, len);
+	cout << "use function, increasing order ...\n";
 	sort(arr, arr + len, intCmp); // using function as comp
 	printArrary(arr, len);
+	cout << "use function object, increasing order ...\n";
 	sort(arr, arr + len, myLess()); // using object as comp; or instatiate an object after the struct
 	printArrary(arr, len);
 
+	//from cplusplus website
+	// priority queue, similar to set
+	int myints[]= {10,60,50,20};
+	typedef std::priority_queue<int,std::vector<int>,mycomparison> mypq_type;
+	mypq_type mypq(myints, myints + 4, mycomparison(true));
+	cout << "use function object, min heap\n";
+	while(!mypq.empty()){
+		cout << mypq.top() << ' ';
+		mypq.pop();
+	}
 	
 }
