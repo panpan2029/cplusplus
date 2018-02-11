@@ -12,6 +12,8 @@ using namespace std;
 //1. define operator <, then less<Object> use it by default, eg. 
 // sort(v.begin(), v.end());
 // priority_queue<Edge> pq;
+
+//https://stackoverflow.com/questions/3810519/how-to-use-a-lambda-expression-as-a-template-parameter
 struct Edge
 {
     int from, to, weight;
@@ -85,7 +87,7 @@ int main(){
 	sort(arr, arr + len, [](int a, int b){return a < b;}); // lambda
 	printArrary(arr, len);
 	cout << "use function, increasing order ...\n";
-	sort(arr, arr + len, intCmp); // using function as comp
+	sort(arr, arr + len, intCmp); // using function as comp, if it's a class member function, it has to be static member function, or else we need to instantiate an object for that.
 	printArrary(arr, len);
 	cout << "use function object, increasing order ...\n";
 	sort(arr, arr + len, myLess()); // using object as comp; or instatiate an object after the struct
