@@ -7,7 +7,9 @@
 
 using namespace std;
 
+//about set, unordered_set, function in the template
 
+//https://stackoverflow.com/questions/20826078/priority-queue-comparison
 
 //1. define operator <, then less<Object> use it by default, eg. 
 // sort(v.begin(), v.end());
@@ -67,6 +69,7 @@ int main(){
 	string str2 = "aBy";
 	cout << ( str1 > str2) << endl;
 	// set<string, CaseInsensitiveCompare> strSet;
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	bool(*fn_pt)(string, string) = CaseInsensitiveCompare;
 	set<string,bool(*)(string, string)> strSet (fn_pt);; // user-defined function
 	strSet.insert(str1);
@@ -80,22 +83,28 @@ int main(){
 	int arr[] = {3,7,9,1,5,0};
 	int len = 6; 
 	cout << "use greater<int>() ...\n";
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	sort(arr, arr+6, greater<int>()); //default less<Object>, default comparison (operator <); () instatiate an obj
 	printArrary(arr, len);
 	
 	cout << "use lambda, increasing order ...\n";
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	sort(arr, arr + len, [](int a, int b){return a < b;}); // lambda
 	printArrary(arr, len);
 	cout << "use function, increasing order ...\n";
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	sort(arr, arr + len, intCmp); // using function as comp, if it's a class member function, it has to be static member function, or else we need to instantiate an object for that.
 	printArrary(arr, len);
-	cout << "use function object, increasing order ...\n";
+	cout << "use function object(from struct operator), increasing order ...\n";
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	sort(arr, arr + len, myLess()); // using object as comp; or instatiate an object after the struct
 	printArrary(arr, len);
 
 	//from cplusplus website
 	// priority queue, similar to set
 	int myints[]= {10,60,50,20};
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	// std::priority_queue<int,std::vector<int>,mycomparison> mypq(begin, end, mycomparison(true))
 	typedef std::priority_queue<int,std::vector<int>,mycomparison> mypq_type;
 	mypq_type mypq(myints, myints + 4, mycomparison(true));
 	cout << "use function object, min heap\n";
